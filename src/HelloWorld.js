@@ -1,7 +1,6 @@
 var http = require('http');
 
 http.createServer(function (req, res) {
-	console.log('New coming request');
 	
 	if (req.url === '/favicon.ico') {
 		res.writeHead(200, {'Content-Type': 'image/x-icon'} );
@@ -10,6 +9,7 @@ http.createServer(function (req, res) {
 	    return;
 	}
 	
+	console.log('New coming request');
 	console.log(req.headers);
 	console.log(req.url);
 	res.writeHead(200, {'Content-Type': 'text/plain'});
