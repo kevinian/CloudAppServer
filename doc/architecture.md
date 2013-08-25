@@ -1,7 +1,9 @@
 ##Cloud App Server
+Restful API
 
 ##E-shop App
-- ember.js
+Ember.js client side application
+
 - register
 - login
 - product / category
@@ -9,6 +11,16 @@
 - payment
 - scm
 - crm
+
+##App Domain Example
+1. Cloud App:
+main domain: www.cloud.de
+backoffice: www.cloud.de/bo
+2. E-Shop App:
+main domain: www.e-shop.de
+subdomain: e-shop.cloud.de
+backoffice: www.e-shop.de/bo
+subdomain backoffice: e-shop.cloud.de/bo
 
 ##Note:
 - scurity problem for client side business app
@@ -63,11 +75,3 @@ logic:
 3. /resource/:id/resource in the end of pathname -> found last resource name, found last resource collection based on the resource instance before it
 4. router always search database by res.get(resource, query, options, callback)
 5. resource saved with node, e.g., '/application/e-shop'
-
-##App Domain
-www.kevin.de
-www.kevin.de/bo
-www.e-shop.de
-e-shop.kevin.de
-www.e-shop.de/bo
-e-shop.kevin.de/bo
