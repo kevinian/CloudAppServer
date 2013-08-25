@@ -1,14 +1,21 @@
 CloudAppServer
 ==============
 
+
 Cloud based nodejs server
--architecture
+-------------------------
+
+###architecture
+
 restful api
--technologiy
-1. node
+
+###technologiy
+
+1. node.js
 2. hbase / mongo
 3. json
 4. json schema / json-ld
 5. linked data
 6. ember.js
 7. streamcrunch
+8. jayschema

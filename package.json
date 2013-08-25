@@ -1,0 +1,41 @@
+{
+  "name": "cloud app server",
+  "version": "0.0.q",
+  "description": "",
+  "homepage": "https://github.com/kevinian/CloudAppServer/",
+  "author": {
+    "name": "kevin",
+    "email": "kevinpaul_boa@hotmail.com",
+    "url": "www.kevinprotoss.de"
+  },
+  "contributors": [
+    {
+      "name": "Junxiang Wei",
+      "email": "kevinpaul_boa@hotmail.com"
+    },
+    {
+      "name": "Zhengliang He",
+      "email": ""
+    }
+  ],
+  "main": "./src/HelloWorld.js",
+  "keywords": [
+    "flatiron",
+    "json schema"
+  ],
+  "bugs": {
+    "url": "https://github.com/kevinian/CloudAppServer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kevinian/CloudAppServer.git"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "mocha": "*"
+  },
+  "scripts": {
+	"start": "node src/HelloWorld.js"
+  }
+}
