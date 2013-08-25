@@ -13,10 +13,10 @@ Ember.js client side application
 - crm
 
 ##App Domain Example
-1. Cloud App:
+- Cloud App:
 main domain: www.cloud.de
 backoffice: www.cloud.de/bo
-2. E-Shop App:
+- E-Shop App:
 main domain: www.e-shop.de
 subdomain: e-shop.cloud.de
 backoffice: www.e-shop.de/bo

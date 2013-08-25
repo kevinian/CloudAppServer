@@ -4,12 +4,9 @@ Cloud Application Server
 
 ##Cloud based nodejs server
 
+###Description
 
-###architecture
-
-restful api
-
-###technologiy
+###Technology
 
 1. node.js
 2. hbase / mongo
