@@ -4,34 +4,44 @@ Restful API
 ##E-shop App
 Ember.js client side application
 
-- register
-- login
-- product / category
-- order
-- payment
-- scm
-- crm
+* register
+* login
+* product / category
+* order
+* payment
+* scm
+* crm
 
 ##App Domain Example
-- Cloud App:
+* Cloud App:
+
 main domain: www.cloud.de
+
 backoffice: www.cloud.de/bo
-- E-Shop App:
+
+* E-Shop App:
+
 main domain: www.e-shop.de
+
 subdomain: e-shop.cloud.de
+
 backoffice: www.e-shop.de/bo
+
 subdomain backoffice: e-shop.cloud.de/bo
 
 ##Note:
-- scurity problem for client side business app
+* Scurity problem for client side business app
+
 server side solution
+
 1. extensible server logic / automated web service composition
+
 client side solution
+
 2. third party resource for mapping between private resource and public resource, hide custom fields of resource in the third party resource
 3. private field of resource, hide or encrypt private field, only server know and can compare or operate private value since it knows the encrypt method
 
 ##Use Case
-
 Use case 1: (register)
 1. user fill in the register form with username, email and password.
 2. e-shop app send the form to the server api per ajax.
