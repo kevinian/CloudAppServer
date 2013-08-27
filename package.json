@@ -15,10 +15,10 @@
     },
     {
       "name": "Zhengliang He",
-      "email": ""
+      "email": "hezengliang@gmail.com"
     }
   ],
-  "main": "./src/HelloWorld.js",
+  "main": "./src/server.js",
   "keywords": [
     "flatiron",
     "json schema"
@@ -38,6 +38,6 @@
     "mocha": "*"
   },
   "scripts": {
-	"start": "node src/HelloWorld.js"
+	"start": "node src/server.js"
   }
 }
