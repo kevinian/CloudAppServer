@@ -21,7 +21,8 @@ app.use(express.favicon())
     .use(function (req, res, next) {
 	   console.log("sitemap.xml");   
 	   next();
-    });
+    })
+    .use(express.compress());
 
 app.get('/', function(req, res){
 	console.log('New coming request');
