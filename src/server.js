@@ -5,13 +5,14 @@ var app = express();
 
 app.use(express.favicon())
    .use(express.logger('dev'))
-   .use(express.bodyParser())
    .use(function (req, res, next) {
-	   console.log("cors");   
+	   console.log("content negotiator");   
 	   next();
     })
+   .use(express.bodyParser())
+   .use(express.compress())
    .use(function (req, res, next) {
-	   console.log("compress");   
+	   console.log("cors");   
 	   next();
     })
     .use(function (req, res, next) {
@@ -21,8 +22,7 @@ app.use(express.favicon())
     .use(function (req, res, next) {
 	   console.log("sitemap.xml");   
 	   next();
-    })
-    .use(express.compress());
+    });
 
 app.get('/', function(req, res){
 	console.log('New coming request');
