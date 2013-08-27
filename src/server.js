@@ -10,6 +10,8 @@ app.use(express.favicon())
 	   next();
     })
    .use(express.bodyParser())
+   // compress works not, since res.json is not overridden by compress middleware
+   // TODO make sure res.headers['content-encoding'] is set correctly
    .use(express.compress())
    .use(function (req, res, next) {
 	   console.log("cors");   
@@ -31,4 +33,4 @@ app.get('/', function(req, res){
 });
 
 app.listen(8888);
-console.log('Express started on port 8888');
+console.log('Server started on port 8888');
