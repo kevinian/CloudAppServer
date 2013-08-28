@@ -23,7 +23,7 @@ app.use(express.favicon())
    .use(express.compress())
    .use(express.static(path.join(__dirname, '../apps/e-shop/public')));
 
-app.get('/', function(req, res) {
+app.get('/hello', function(req, res) {
   console.log('New coming request');
   console.log('Request URL: ' + req.url);
   res.json({

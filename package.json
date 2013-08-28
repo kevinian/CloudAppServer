@@ -32,7 +32,8 @@
   },
   "dependencies": {
 	"express": "*",
-	"async": "*"
+	"async": "*",
+	"negotiator": "*"
   },
   "devDependencies": {
     "mocha": "*"
