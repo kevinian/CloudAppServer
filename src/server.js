@@ -1,25 +1,21 @@
-var express = require('express');
+var express = require('express'),
+    async = require('async');
+
 var cors = require('./handler/cors/cors');
+var negotiator = require('./handler/negotiator/contentNegotiator');
+var robots_txt = require('./handler/robots/robots_txt');
+var sitemap_xml = require('./handler/sitemap/sitemap_xml');
 
 var app = express();
 
 app.use(express.favicon())
    .use(express.logger('dev'))
-   .use(function (req, res, next) {
-	   console.log("content negotiator");   
-	   next();
-   })
+   .use(negotiator())
    .use(express.query())
    .use(express.bodyParser())
    .use(cors())
-   .use(function (req, res, next) {
-	   console.log("robots.txt");   
-	   next();
-   })
-   .use(function (req, res, next) {
-	   console.log("sitemap.xml");   
-	   next();
-   })
+   .use(robots_txt())
+   .use(sitemap_xml())
    // compress works not, since res.json is not overridden by compress middleware
    // TODO make sure res.headers['content-encoding'] is set correctly
    .use(express.compress());
