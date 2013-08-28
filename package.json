@@ -31,14 +31,14 @@
     "url": "git://github.com/kevinian/CloudAppServer.git"
   },
   "dependencies": {
-	"express": "*",
-	"async": "*",
-	"negotiator": "*"
+    "express": "*",
+    "async": "*",
+    "negotiator": "*"
   },
   "devDependencies": {
     "mocha": "*"
   },
   "scripts": {
-	"start": "node src/server.js"
+    "start": "node src/server.js"
   }
 }
