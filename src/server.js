@@ -33,13 +33,11 @@ app.get('/hello', function(req, res) {
 
 app.get('/users', function(req, res) {
   var users = require(path.join(__dirname, '../apps/e-shop/fixtures/users.json'));
-  console.log(users.toString());
   res.json(users);
 });
 
 app.get('/application', function(req, res) {
   var application = require(path.join(__dirname, '../apps/e-shop/fixtures/application.json'));
-  console.log(application.toString());
   res.json(application);
 });
 
