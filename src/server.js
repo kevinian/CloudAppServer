@@ -1,5 +1,4 @@
-var express = require('express'),
-    async = require('async');
+var express = require('express'), async = require('async');
 
 var cors = require('./handler/cors/cors');
 var negotiator = require('./handler/negotiator/contentNegotiator');
@@ -14,16 +13,17 @@ app.use(express.favicon())
    .use(express.query())
    .use(express.bodyParser())
    .use(cors())
-   .use(robots_txt())
-   .use(sitemap_xml())
+   .use(robots_txt()).use(sitemap_xml())
    // compress works not, since res.json is not overridden by compress middleware
    // TODO make sure res.headers['content-encoding'] is set correctly
    .use(express.compress());
 
-app.get('/', function(req, res){
-	console.log('New coming request');
-	console.log('Request URL: ' + req.url);
-	res.json({ message: 'Hello World' });
+app.get('/', function(req, res) {
+  console.log('New coming request');
+  console.log('Request URL: ' + req.url);
+  res.json({
+    message: 'Hello World'
+  });
 });
 
 app.listen(8888);
