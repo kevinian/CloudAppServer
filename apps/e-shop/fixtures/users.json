@@ -1,14 +1,14 @@
 [
   {
-    id: "junxiang.wei",
-    firstName: "Junxiang",
-    lastName: "Wei",
-    gender: "male"
+    "id": "junxiang.wei",
+    "firstName": "Junxiang",
+    "lastName": "Wei",
+    "gender": "male"
   },
   {
-    id: "zengliang.he",
-    firstName: "Zengliang",
-    lastName: "He",
-    gender: "male"
+    "id": "zengliang.he",
+    "firstName": "Zengliang",
+    "lastName": "He",
+    "gender": "male"
   }
 ]
