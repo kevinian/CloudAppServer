@@ -18,10 +18,11 @@ var app = express()
   .use(sitemap_xml())
   // compress works not, since res.json is not overridden by compress middleware
   // TODO make sure res.headers['content-encoding'] is set correctly
+  .use(app.router)
   .use(express.compress())
   .use(express.static(path.join(__dirname, '../apps/e-shop/public')));
 
-app.get('/', function(req, res) {
+app.get('/hello', function(req, res) {
   console.log('New coming request');
   console.log('Request URL: ' + req.url);
   res.json({
