@@ -1,5 +1,5 @@
-var http = require('http');
 var express = require('express');
+var cors = require('./handler/cors/cors');
 
 var app = express();
 
@@ -8,23 +8,21 @@ app.use(express.favicon())
    .use(function (req, res, next) {
 	   console.log("content negotiator");   
 	   next();
-    })
+   })
+   .use(express.query())
    .use(express.bodyParser())
-   // compress works not, since res.json is not overridden by compress middleware
-   // TODO make sure res.headers['content-encoding'] is set correctly
-   .use(express.compress())
+   .use(cors())
    .use(function (req, res, next) {
-	   console.log("cors");   
-	   next();
-    })
-    .use(function (req, res, next) {
 	   console.log("robots.txt");   
 	   next();
-    })
-    .use(function (req, res, next) {
+   })
+   .use(function (req, res, next) {
 	   console.log("sitemap.xml");   
 	   next();
-    });
+   })
+   // compress works not, since res.json is not overridden by compress middleware
+   // TODO make sure res.headers['content-encoding'] is set correctly
+   .use(express.compress());
 
 app.get('/', function(req, res){
 	console.log('New coming request');
