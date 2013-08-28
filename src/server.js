@@ -19,7 +19,7 @@ var app = express()
   // compress works not, since res.json is not overridden by compress middleware
   // TODO make sure res.headers['content-encoding'] is set correctly
   .use(express.compress())
-  .use(connect.static(path.join(__dirname, '../apps/e-shop/public')));
+  .use(express.static(path.join(__dirname, '../apps/e-shop/public')));
 
 app.get('/', function(req, res) {
   console.log('New coming request');
