@@ -51,13 +51,27 @@ app.get('/hello', function(req, res) {
   console.log('New coming request');
   console.log('Request URL: ' + req.url);
   res.json({
-    message: 'Hello World'
+    message: 'Hello World!'
   });
 });
 
-app.get('/database', function(req, res) {
-  dbInst.findAll(function(err, record) {
+app.get('/database/init', function(req, res) {
+  dbInst.init(function(err, records) {
+    res.json({
+      message: 'Database initialized!'
+    });
+  });
+});
+
+app.get('/database/1', function(req, res) {
+  dbInst.findById(1, function(err, record) {
     res.json(record);
+  });
+});
+
+app.get('/databases', function(req, res) {
+  dbInst.findAll(function(err, records) {
+    res.json(records);
   });
 });
 

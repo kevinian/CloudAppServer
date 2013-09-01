@@ -1,4 +1,4 @@
-var recordCounter = 1;
+var recordCounter = 0;
 
 DB = function(){};
 DB.prototype.dummyData = [];
@@ -40,11 +40,10 @@ DB.prototype.save = function(records, callback) {
   callback(null, records);
 };
 
-/* Lets bootstrap with dummy data */
-new DB().save([
-  {title: 'Post one', body: 'Body one', comments:[{author:'Bob', comment:'I love it'}, {author:'Dave', comment:'This is rubbish!'}]},
-  {title: 'Post two', body: 'Body two'},
-  {title: 'Post three', body: 'Body three'}
-], function(error, articles){});
+DB.prototype.init = function(callback) {
+  var articles = require('./articles.json');
+  /* Lets bootstrap with dummy data */
+  new DB().save(articles, callback);
+};
 
 exports.DB = DB;
