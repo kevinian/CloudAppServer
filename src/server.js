@@ -63,15 +63,21 @@ app.get('/database/init', function(req, res) {
   });
 });
 
-app.get('/articles/1', function(req, res) {
-  dbInst.findById(1, function(err, record) {
-    res.json(record);
+app.get('/articles/:id', function(req, res) {
+  dbInst.findById(req.params.id, function(err, record) {
+    if (record)
+      res.json(record);
+    else
+      res.send(404);
   });
 });
 
 app.get('/articles', function(req, res) {
   dbInst.findAll(function(err, records) {
-    res.json(records);
+    if (records)
+      res.json(records);
+    else
+      res.send(404);
   });
 });
 

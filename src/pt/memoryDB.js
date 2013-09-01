@@ -1,4 +1,4 @@
-var recordCounter = 0;
+var recordCounter = 1;
 
 DB = function(){};
 DB.prototype.dummyData = [];
