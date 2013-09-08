@@ -69,7 +69,7 @@ var search = function(records, query) {
     for(var i=0; i < keys.length; i++) {
       var queryCond;
       if (query[keys[i]].hasOwnProperty('$regex')) {
-        var options = query[keys[i]].$options | 'g';
+        var options = query[keys[i]].$options || 'g';
         queryCond = new RegExp(query[keys[i]].$regex, options);
       } else
         queryCond = new RegExp(query[keys[i]]);
