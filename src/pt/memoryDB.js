@@ -67,7 +67,7 @@ var search = function(records, query) {
   var result = records.filter(function(record) {
     var keys = Object.keys(query);
     for(var i=0; i < keys.length; i++) {
-      if (!record.hasOwnProperty(keys[i]) || record[keys[i]] !== query(keys[i])) {
+      if (!record.hasOwnProperty(keys[i]) || record[keys[i]] !== query[keys[i]]) {
         return false;
       }
     }
