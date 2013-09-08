@@ -103,10 +103,7 @@ app.get('/articles', function(req, res) {
         return o.created;
     }));
     res.setHeader('last-modified', new Date(lastModified).toUTCString());
-    console.log(req.headers);
-    console.log(res.getHeader('last-modified'));
-    console.log(fresh(req, res));
-    if (!fresh(req, res))
+    if (!fresh({ 'if-modified-since': req.headers['if-modified-since'] }, { 'last-modified': res.getHeader('last-modified') }))
       return res.send(304);
     
     async.map(
