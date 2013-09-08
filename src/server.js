@@ -1,7 +1,8 @@
 var express = require('express'),
     path = require('path'),
     async = require('async'),
-    clone = require('clone');
+    clone = require('clone'),
+    uuid = require('node-uuid');
 
 // Handlers
 var cors = require('./handler/cors/cors');
@@ -56,23 +57,12 @@ app.get('/hello', function(req, res) {
 });
 
 app.get('/database/init', function(req, res) {
-  var records = [
-    {
-      id: 1,
-      value: 'article 1'
-    },
-    {
-      id: 2,
-      value: 'article 2'
-    },
-    {
-      id: 3,
-      value: 'article 3'
-    }
-  ];
+  var articles = require('./pt/articles.json');
   async.each(
-      records
+      articles
     , function(record, cb) {
+        if (!record.id)
+          record.id = uuid.v4();
         global.db.create('/articles', record, cb);
       }
     , function(err) {
@@ -94,6 +84,7 @@ app.get('/articles/:id', function(req, res) {
   global.db.getOne(req.url, {}, function(err, record) {
     if (!record)
       return res.send(404);
+    // clone required only for temp demo DB
     var result = clone(record);
     delete result._id;
     delete result._node;
@@ -108,6 +99,7 @@ app.get('/articles', function(req, res) {
     async.map(
         records
       , function(record, cb) {
+         // clone required only for temp demo DB
           var result = clone(record);
           delete result._id;
           delete result._node;

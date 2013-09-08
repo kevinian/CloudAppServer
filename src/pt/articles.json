@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "title": "Post one",
     "body": "Body one",
     "comments": 
@@ -15,10 +16,12 @@
       ]
   }, 
   {
+    "id": 2
     "title": "Post two",
     "body": "Body two"
   }, 
   {
+    "id": 3
     "title": "Post three",
     "body": "Body three"
   }
