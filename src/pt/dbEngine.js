@@ -16,6 +16,10 @@ function DB(dbInst) {
   this._db = dbInst;
 }
 
+DB.prototype.print = function(callback) {
+  this._db.dummy(callback);
+};
+
 DB.prototype.count = function(uri, query, callback) {
   query._node = { $regex: '^' + uri};
   this._db.find(query, function(err, results) {

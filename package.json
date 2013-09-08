@@ -33,7 +33,8 @@
   "dependencies": {
     "express": "*",
     "async": "*",
-    "negotiator": "*"
+    "negotiator": "*",
+    "node-uuid": "*"
   },
   "devDependencies": {
     "mocha": "*"

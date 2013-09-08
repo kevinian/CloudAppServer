@@ -1,6 +1,12 @@
+var uuid = require('node-uuid');
+
 Memory = function(options){
   this._recordCounter = 1;
   this._data = [];
+};
+
+Memory.prototype.dummy = function(callback) {
+  callback(null, this._data);
 };
 
 Memory.prototype.find = function(query, callback) {
@@ -13,7 +19,8 @@ Memory.prototype.findOne = function(query, callback) {
 };
 
 Memory.prototype.insert = function(record, callback) {
-  record._id = this._recordCounter++;
+  record._id = uuid.v4();
+  this._recordCounter++;
   record.created = new Date();
   record.modified = new Date();
   this._data[this._data.length]= record;
@@ -69,8 +76,9 @@ var search = function(records, query) {
     for(var i=0; i < keys.length; i++) {
       var queryCond;
       if (query[keys[i]].hasOwnProperty('$regex')) {
-        var options = query[keys[i]].$options || 'g';
-        queryCond = new RegExp(query[keys[i]].$regex, options);
+        queryCond = query[keys[i]].hasOwnProperty('$options') ? 
+                new RegExp(query[keys[i]].$regex, query[keys[i]].$options) : 
+                new RegExp(query[keys[i]].$regex);
       } else
         queryCond = new RegExp(query[keys[i]]);
       if (!record.hasOwnProperty(keys[i]) || !queryCond.test(record[keys[i]])) {

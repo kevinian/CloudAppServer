@@ -11,7 +11,6 @@ var sitemap_xml = require('./handler/sitemap/sitemap_xml');
 // Persistent layer
 var pt = require('./pt/init');
 var DB = require('./pt/memoryDB').DB;
-//var dbInst = new DB();
 
 // Express framework
 var app = express();
@@ -56,33 +55,66 @@ app.get('/hello', function(req, res) {
 });
 
 app.get('/database/init', function(req, res) {
-  var record = {
-    id: 1,
-    value: 'test record'
-  };
-  global.db.create('/articles', record, function() {
-    res.json({
-      message: 'Database initialized!',
-      record: record
-    });
+  var records = [
+    {
+      id: 1,
+      value: 'article 1'
+    },
+    {
+      id: 2,
+      value: 'article 2'
+    },
+    {
+      id: 1,
+      value: 'article 3'
+    }
+  ];
+  async.each(
+      records
+    , function(record, cb) {
+        global.db.create('/articles', record, cb);
+      }
+    , function(err) {
+        res.json({
+          message: 'Database initialized!',
+          records: records
+        });
+      }
+  );
+});
+
+app.get('/database/print', function(req, res) {
+  global.db.print(function(err, records) {
+    res.json(records);
   });
 });
 
 app.get('/articles/:id', function(req, res) {
   global.db.getOne(req.url, {}, function(err, record) {
-    if (record)
+    if (record) {
+      delete record._id;
+      delete record._node;
       res.json(record);
-    else
+    } else
       res.send(404);
   });
 });
 
 app.get('/articles', function(req, res) {
   global.db.get(req.url, {}, function(err, records) {
-    if (records)
-      res.json(records);
-    else
-      res.send(404);
+    if (!records)
+      return res.send(404);
+    async.map(
+        records
+      , function(record, cb) {
+          delete record._id;
+          delete record._node;
+          cb(null, record);
+        }
+      , function(err, results){
+          res.json(results);
+        }
+    );
   });
 });
 
