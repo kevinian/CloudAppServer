@@ -1,7 +1,8 @@
 var express = require('express'),
     path = require('path'),
     async = require('async'),
-    clone = require('clone');
+    clone = require('clone'),
+    fresh = require('fresh');
 
 // Handlers
 var cors = require('./handler/cors/cors');
@@ -74,6 +75,13 @@ app.get('/articles/:id', function(req, res) {
   global.db.getOne(req.url, {}, function(err, record) {
     if (!record)
       return res.send(404);
+    
+    // Cache
+    var lastModified = record.modified ? record.modified : record.created;
+    res.setHeader('last-modified', lastModified.toUTCString());
+    if (!fresh(req, res))
+      return res.send(304);
+    
     // clone required only for temp demo DB
     var result = clone(record);
     delete result._id;
@@ -86,6 +94,18 @@ app.get('/articles', function(req, res) {
   global.db.get(req.url, {}, function(err, records) {
     if (!records)
       return res.send(404);
+    
+    // Cache
+    var lastModified = Math.max.apply(Math, records.map(function(o) {
+      if (o.modified)
+        return o.modified;
+      else
+        return o.created;
+    }));
+    res.setHeader('last-modified', lastModified.toUTCString());
+    if (!fresh(req, res))
+      return res.send(304);
+    
     async.map(
         records
       , function(record, cb) {

@@ -35,7 +35,8 @@
     "async": "*",
     "negotiator": "*",
     "node-uuid": "*",
-    "clone": "*"
+    "clone": "*",
+    "fresh": "*"
   },
   "devDependencies": {
     "mocha": "*"
