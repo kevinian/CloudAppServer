@@ -64,17 +64,15 @@ Memory.prototype.remove = function(record, query, callback) {
 //};
 
 var search = function(records, query) {
-  var regexP = new RegExp('^/(.*?)/(g?i?m?y?)$');
   var result = records.filter(function(record) {
     var keys = Object.keys(query);
     for(var i=0; i < keys.length; i++) {
       var queryCond;
-      if (regexP.test(query[keys[i]])) {
-        var match = query[keys[i]].toString().match(regexP);
-        var queryCond = new RegExp(match[0], match[1]);
+      if (query[keys[i]].hasOwnProperty('$regex')) {
+        var options = query[keys[i]].$options | 'g';
+        queryCond = new RegExp(query[keys[i]].$regex, options);
       } else
         queryCond = new RegExp(query[keys[i]]);
-      console.log(queryCond);
       if (!record.hasOwnProperty(keys[i]) || !queryCond.test(record[keys[i]])) {
         return false;
       }
