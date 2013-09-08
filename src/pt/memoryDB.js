@@ -4,11 +4,11 @@ Memory = function(options){
 };
 
 Memory.prototype.find = function(query, callback) {
-  callback(null, query(this_data, query));
+  callback(null, query(this._data, query));
 };
 
 Memory.prototype.findOne = function(query, callback) {
-  callback(null, query(this_data, query)[0]);
+  callback(null, query(this._data, query)[0]);
 };
 
 Memory.prototype.insert = function(record, callback) {
