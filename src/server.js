@@ -11,7 +11,7 @@ var sitemap_xml = require('./handler/sitemap/sitemap_xml');
 // Persistent layer
 var pt = require('./pt/init');
 var DB = require('./pt/memoryDB').DB;
-var dbInst = new DB();
+//var dbInst = new DB();
 
 // Express framework
 var app = express();
