@@ -34,7 +34,8 @@
     "express": "*",
     "async": "*",
     "negotiator": "*",
-    "node-uuid": "*"
+    "node-uuid": "*",
+    "clone": "*"
   },
   "devDependencies": {
     "mocha": "*"

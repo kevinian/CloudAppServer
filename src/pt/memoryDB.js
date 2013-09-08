@@ -1,7 +1,6 @@
 /**
  * Demo database based on Mongo DB
  */
-
 var uuid = require('node-uuid');
 
 Memory = function(options){
@@ -91,7 +90,6 @@ var search = function(records, query) {
     }
     return true;
   });
-  console.log(records);
   return result;
 };
 

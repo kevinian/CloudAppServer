@@ -1,6 +1,7 @@
 var express = require('express'),
     path = require('path'),
-    async = require('async');
+    async = require('async'),
+    clone = require('clone');
 
 // Handlers
 var cors = require('./handler/cors/cors');
@@ -93,9 +94,10 @@ app.get('/articles/:id', function(req, res) {
   global.db.getOne(req.url, {}, function(err, record) {
     if (!record)
       return res.send(404);
-    delete record._id;
-    delete record._node;
-    res.json(record);
+    var result = clone(record);
+    delete result._id;
+    delete result._node;
+    res.json(result);
   });
 });
 
@@ -106,9 +108,10 @@ app.get('/articles', function(req, res) {
     async.map(
         records
       , function(record, cb) {
-          delete record._id;
-          delete record._node;
-          cb(null, record);
+          var result = clone(record);
+          delete result._id;
+          delete result._node;
+          cb(null, result);
         }
       , function(err, results){
           res.json(results);
