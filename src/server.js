@@ -79,7 +79,7 @@ app.get('/articles/:id', function(req, res) {
     // Cache
     var lastModified = record.modified ? record.modified : record.created;
     res.setHeader('last-modified', lastModified.toUTCString());
-    if (!fresh(req, res))
+    if (fresh({ 'if-modified-since': req.headers['if-modified-since'] }, { 'last-modified': res.getHeader('last-modified') }))
       return res.send(304);
     
     // clone required only for temp demo DB
@@ -103,8 +103,7 @@ app.get('/articles', function(req, res) {
         return o.created;
     }));
     res.setHeader('last-modified', new Date(lastModified).toUTCString());
-    console.log(req.headers['if-modified-since']);
-    if (!fresh({ 'if-modified-since': req.headers['if-modified-since'] }, { 'last-modified': res.getHeader('last-modified') }))
+    if (fresh({ 'if-modified-since': req.headers['if-modified-since'] }, { 'last-modified': res.getHeader('last-modified') }))
       return res.send(304);
     
     async.map(
