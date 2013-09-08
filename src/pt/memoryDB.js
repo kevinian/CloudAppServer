@@ -1,3 +1,7 @@
+/**
+ * Demo database based on Mongo DB
+ */
+
 var uuid = require('node-uuid');
 
 Memory = function(options){
@@ -14,7 +18,6 @@ Memory.prototype.find = function(query, callback) {
 };
 
 Memory.prototype.findOne = function(query, callback) {
-  console.log(this._data);
   callback(null, search(this._data, query)[0]);
 };
 
@@ -42,7 +45,8 @@ Memory.prototype.remove = function(record, query, callback) {
   var result = search(this._data, query)[0];
   for(var i=0; i < this._data.length; i++) {
     if (this._data[i]._id === result._id) {
-      // TODO remove record, modify index
+      this._data.splice(i, 1);
+      this._recordCounter--;
       return callback();
     }
   }

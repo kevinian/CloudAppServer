@@ -65,7 +65,7 @@ app.get('/database/init', function(req, res) {
       value: 'article 2'
     },
     {
-      id: 1,
+      id: 3,
       value: 'article 3'
     }
   ];
