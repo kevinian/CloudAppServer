@@ -59,13 +59,14 @@ DB.prototype.remove = function(url, query, options, callback) {
  */
 DB.prototype.init = function(callback) {
   var records = require('./articles.json');
+  var thiz = this;
   /* Lets bootstrap with dummy data */
   async.each(
           records
     , function(record, cb) {
         if (!record.id)
           record.id = uuid.v4();
-        this._db.create('/articles', record, cb);
+        thiz._db.create('/articles', record, cb);
       }
     , function(err) {
         callback(err, records);
