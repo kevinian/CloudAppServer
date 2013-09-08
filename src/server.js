@@ -91,12 +91,11 @@ app.get('/database/print', function(req, res) {
 
 app.get('/articles/:id', function(req, res) {
   global.db.getOne(req.url, {}, function(err, record) {
-    if (record) {
-      delete record._id;
-      delete record._node;
-      res.json(record);
-    } else
-      res.send(404);
+    if (!record)
+      return res.send(404);
+    delete record._id;
+    delete record._node;
+    res.json(record);
   });
 });
 
@@ -104,18 +103,14 @@ app.get('/articles', function(req, res) {
   global.db.get(req.url, {}, function(err, records) {
     if (!records)
       return res.send(404);
-    console.log(records);
-    console.log('-------------');
     async.map(
         records
       , function(record, cb) {
-          console.log(record);
           delete record._id;
           delete record._node;
           cb(null, record);
         }
       , function(err, results){
-        console.log(results);
           res.json(results);
         }
     );

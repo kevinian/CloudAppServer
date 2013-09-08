@@ -91,6 +91,7 @@ var search = function(records, query) {
     }
     return true;
   });
+  console.log(records);
   return result;
 };
 
