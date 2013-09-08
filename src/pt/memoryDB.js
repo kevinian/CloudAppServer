@@ -8,6 +8,7 @@ Memory.prototype.find = function(query, callback) {
 };
 
 Memory.prototype.findOne = function(query, callback) {
+  console.log(this._data);
   callback(null, search(this._data, query)[0]);
 };
 
@@ -21,8 +22,8 @@ Memory.prototype.insert = function(record, callback) {
 
 Memory.prototype.update = function(record, query, callback) {
   record.modified = new Date();
-  var result = search(this_data, query)[0];
-  for(var i=0; i < this_data.length; i++) {
+  var result = search(this._data, query)[0];
+  for(var i=0; i < this._data.length; i++) {
     if (this._data[i]._id === result._id) {
       this._data[i] = record;
       return callback();
@@ -31,8 +32,8 @@ Memory.prototype.update = function(record, query, callback) {
 };
 
 Memory.prototype.remove = function(record, query, callback) {
-  var result = search(this_data, query)[0];
-  for(var i=0; i < this_data.length; i++) {
+  var result = search(this._data, query)[0];
+  for(var i=0; i < this._data.length; i++) {
     if (this._data[i]._id === result._id) {
       // TODO remove record, modify index
       return callback();

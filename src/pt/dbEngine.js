@@ -17,14 +17,14 @@ function DB(dbInst) {
 }
 
 DB.prototype.count = function(uri, query, callback) {
-  query._node = new Regex('^' + uri);
+  query._node = new RegExp('^' + uri);
   this._db.find(query, function(err, results) {
     callback(err, results.length);
   });
 };
 
 DB.prototype.get = function(uri, query, callback) {
-  query._node = new Regex('^' + uri);
+  query._node = new RegExp('^' + uri);
   this._db.find(query, callback);
 };
 
