@@ -102,7 +102,7 @@ app.get('/articles', function(req, res) {
       else
         return o.created;
     }));
-    res.setHeader('last-modified', lastModified.toUTCString());
+    res.setHeader('last-modified', new Date(lastModified).toUTCString());
     if (!fresh(req, res))
       return res.send(304);
     
