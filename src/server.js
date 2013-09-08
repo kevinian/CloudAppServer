@@ -9,6 +9,7 @@ var robots_txt = require('./handler/robots/robots_txt');
 var sitemap_xml = require('./handler/sitemap/sitemap_xml');
 
 // Persistent layer
+var pt = require('./pt/init');
 var DB = require('./pt/memoryDB').DB;
 var dbInst = new DB();
 
@@ -31,7 +32,6 @@ app.configure(function(){
      // TODO make sure res.headers['content-encoding'] is set correctly
      .use(express.compress())
      .use(express.static(path.join(__dirname, '../apps/e-shop/public')));
-  
 });
 
 // development only
@@ -56,15 +56,26 @@ app.get('/hello', function(req, res) {
 });
 
 app.get('/database/init', function(req, res) {
-  dbInst.init(function(err, records) {
+//  dbInst.init(function(err, records) {
+//    res.json({
+//      message: 'Database initialized!'
+//    });
+//  });
+  var record = {
+    id: 1,
+    value: 'test record'
+  };
+  global.db.create('/articles', record, function() {
     res.json({
-      message: 'Database initialized!'
+      message: 'Create Record',
+      record: record
     });
   });
 });
 
 app.get('/articles/:id', function(req, res) {
-  dbInst.findById(req.params.id, function(err, record) {
+  console.log(req.url);
+  global.db.getOne(req.url, {}, function(err, record) {
     if (record)
       res.json(record);
     else
@@ -72,14 +83,23 @@ app.get('/articles/:id', function(req, res) {
   });
 });
 
-app.get('/articles', function(req, res) {
-  dbInst.findAll(function(err, records) {
-    if (records)
-      res.json(records);
-    else
-      res.send(404);
-  });
-});
+//app.get('/articles/:id', function(req, res) {
+//  global.db.getOne(req.url, function(err, record) {
+//    if (record)
+//      res.json(record);
+//    else
+//      res.send(404);
+//  });
+//});
+//
+//app.get('/articles', function(req, res) {
+//  global.db.get(req.url, function(err, records) {
+//    if (records)
+//      res.json(records);
+//    else
+//      res.send(404);
+//  });
+//});
 
 app.get('/users', function(req, res) {
   var users = require(path.join(__dirname, '../apps/e-shop/fixtures/users.json'));
@@ -91,7 +111,20 @@ app.get('/application', function(req, res) {
   res.json(application);
 });
 
-// Server start
-// TODO with MONIT support
-app.listen(8888);
-console.log('Server started on port 8888');
+async.series([
+  function(callback) {
+    pt.build(function(err, db) {
+      global.db = db;
+      callback();
+    });
+  },
+  function(callback) {
+    callback();
+  }
+],
+function(err, results) {
+  //Server start
+  //TODO with MONIT support
+  app.listen(8888);
+  console.log('Server started on port 8888');
+});
