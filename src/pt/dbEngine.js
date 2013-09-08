@@ -29,7 +29,6 @@ DB.prototype.get = function(uri, query, callback) {
 };
 
 DB.prototype.getOne = function(uri, query, callback) {
-  console.log(callback.toString());
   query._node = uri;
   this._db.findOne(query, callback);
 };

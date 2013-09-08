@@ -8,6 +8,7 @@ Memory.prototype.find = function(query, callback) {
 };
 
 Memory.prototype.findOne = function(query, callback) {
+  console.log(callback.toString());
   callback(null, query(this._data, query)[0]);
 };
 
