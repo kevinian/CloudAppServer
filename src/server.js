@@ -68,7 +68,7 @@ app.get('/database/init', function(req, res) {
     , function(err) {
         res.json({
           message: 'Database initialized!',
-          records: records
+          records: articles
         });
       }
   );
