@@ -104,14 +104,18 @@ app.get('/articles', function(req, res) {
   global.db.get(req.url, {}, function(err, records) {
     if (!records)
       return res.send(404);
+    console.log(records);
+    console.log('-------------');
     async.map(
         records
       , function(record, cb) {
+          console.log(record);
           delete record._id;
           delete record._node;
           cb(null, record);
         }
       , function(err, results){
+        console.log(results);
           res.json(results);
         }
     );
