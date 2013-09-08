@@ -66,7 +66,7 @@ DB.prototype.init = function(callback) {
     , function(record, cb) {
         if (!record.id)
           record.id = uuid.v4();
-        thiz._db.create('/articles', record, cb);
+        thiz.create('/articles', record, cb);
       }
     , function(err) {
         callback(err, records);
