@@ -25,7 +25,6 @@ DB.prototype.count = function(uri, query, callback) {
 
 DB.prototype.get = function(uri, query, callback) {
   query._node = new RegExp('^' + uri);
-  console.log(query);
   this._db.find(query, callback);
 };
 
