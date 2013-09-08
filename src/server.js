@@ -1,8 +1,7 @@
 var express = require('express'),
     path = require('path'),
     async = require('async'),
-    clone = require('clone'),
-    uuid = require('node-uuid');
+    clone = require('clone');
 
 // Handlers
 var cors = require('./handler/cors/cors');
@@ -57,21 +56,12 @@ app.get('/hello', function(req, res) {
 });
 
 app.get('/database/init', function(req, res) {
-  var articles = require('./pt/articles.json');
-  async.each(
-      articles
-    , function(record, cb) {
-        if (!record.id)
-          record.id = uuid.v4();
-        global.db.create('/articles', record, cb);
-      }
-    , function(err) {
-        res.json({
-          message: 'Database initialized!',
-          records: articles
-        });
-      }
-  );
+  global.db.init(function(err, records) {
+    res.json({
+      message: 'Database initialized!',
+      records: records
+    });
+  });
 });
 
 app.get('/database/print', function(req, res) {

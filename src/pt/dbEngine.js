@@ -1,3 +1,6 @@
+var async = require('async'),
+    uuid = require('node-uuid');
+
 var Memory = require('./memoryDB').Memory;
 
 exports.connect = function(options, callback) {
@@ -51,8 +54,21 @@ DB.prototype.remove = function(url, query, options, callback) {
   // TODO
 };
 
+/**
+ * Only for demo
+ */
 DB.prototype.init = function(callback) {
-  var articles = require('./articles.json');
+  var records = require('./articles.json');
   /* Lets bootstrap with dummy data */
-  this._db.save(articles, callback);
+  async.each(
+          records
+    , function(record, cb) {
+        if (!record.id)
+          record.id = uuid.v4();
+        this._db.create('/articles', record, cb);
+      }
+    , function(err) {
+        callback(err, records);
+      }
+  );
 };
