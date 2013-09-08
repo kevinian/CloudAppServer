@@ -74,4 +74,5 @@ var search = function(records, query) {
   });
   return result;
 };
+
 exports.Memory = Memory;

@@ -56,25 +56,19 @@ app.get('/hello', function(req, res) {
 });
 
 app.get('/database/init', function(req, res) {
-//  dbInst.init(function(err, records) {
-//    res.json({
-//      message: 'Database initialized!'
-//    });
-//  });
   var record = {
     id: 1,
     value: 'test record'
   };
   global.db.create('/articles', record, function() {
     res.json({
-      message: 'Create Record',
+      message: 'Database initialized!',
       record: record
     });
   });
 });
 
 app.get('/articles/:id', function(req, res) {
-  console.log(req.url);
   global.db.getOne(req.url, {}, function(err, record) {
     if (record)
       res.json(record);
@@ -83,23 +77,14 @@ app.get('/articles/:id', function(req, res) {
   });
 });
 
-//app.get('/articles/:id', function(req, res) {
-//  global.db.getOne(req.url, function(err, record) {
-//    if (record)
-//      res.json(record);
-//    else
-//      res.send(404);
-//  });
-//});
-//
-//app.get('/articles', function(req, res) {
-//  global.db.get(req.url, function(err, records) {
-//    if (records)
-//      res.json(records);
-//    else
-//      res.send(404);
-//  });
-//});
+app.get('/articles', function(req, res) {
+  global.db.get(req.url, {}, function(err, records) {
+    if (records)
+      res.json(records);
+    else
+      res.send(404);
+  });
+});
 
 app.get('/users', function(req, res) {
   var users = require(path.join(__dirname, '../apps/e-shop/fixtures/users.json'));

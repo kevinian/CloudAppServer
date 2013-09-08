@@ -39,7 +39,7 @@ DB.prototype.update = function(uri, query, options, callback) {
 };
 
 DB.prototype.create = function(uri, record, callback) {
-  query._node = uri + '/' + record.id;
+  record._node = uri + '/' + record.id;
   this._db.insert(record, callback);
 };
 
