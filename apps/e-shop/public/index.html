@@ -6,46 +6,26 @@
 <script src="http://builds.emberjs.com/ember-data-latest.js"></script>
 </head>
 <body>
-<script type="text/x-handlebars">
-{{#view App.UserView }}
-<b>Name:</b> {{name}}
-{{/view}}
-</script>
-<button onclick="btnTest_OnClick()" id="btnTest">Click me to change</button>
+<script>
  
-<script type="text/javascript">
-    window.App = Ember.Application.create();
+  App = Ember.Application.create();
  
-    function btnTest_OnClick() {
-        App.userController.changeModel();
-    }
- 
-    $(document).ready(function() {
- 
-        App.Person = Ember.Object.extend({
-            id: 0,
-            name: ""
-        });
- 
-        var person = App.Person.create();
-        person.name = "Duncan";
-        person.id = 0;
- 
-        App.userController = Ember.Object.create({
-            content: person,
-            changeModel: function () {
-                this.content.set('name', 'Joe');
-            }
-        });
- 
-         App.UserView = Ember.View.extend({
-            nameBinding: 'App.userController.content.name'            
-        });
- 
-   });
+  App.Router.map(function() {
+    this.resource('index', { path: '/' }, function() {});
+    this.resource('hi', { path: '/hi' }, function() {});
+  });
  
 </script>
  
+<script type="text/x-handlebars" data-template-name='index'>
+  <p>index!</p>
+ 
+  <p>{{#linkTo hi}}hi{{/linkTo}}</p>
+</script>
+ 
+<script type="text/x-handlebars" data-template-name='hi'>
+  hello world!
+</script>
  
 </body>
 </html> 
