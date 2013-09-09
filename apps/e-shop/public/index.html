@@ -7,31 +7,12 @@
 </head>
 <body>
 
-<script>
-
-App = Ember.Application.create();
-
-App.MyView = Ember.View.extend({ templateName: "MyView" });
-
-App.myCollectionView = Ember.CollectionView.extend({
-    itemViewClass: App.MyView,
-    content: [
-        Ember.Object.create({ name: "World" }),
-        Ember.Object.create({ name: "Foo" }),
-        Ember.Object.create({ name: "Bar" })
-    ]
-});
-
-$(function() { App.initialize(); });
- 
-</script>
- 
 <script type="text/x-handlebars">
-   {{collection App.myCollectionView}}
+    Hello World!
 </script>
 
-<script type="text/x-handlebars" data-template-name="MyView">
-  <h1>Hello, {{view.content.name}}!</h1>
+<script>
+    App = Ember.Application.create();
 </script>
 
 </body>
