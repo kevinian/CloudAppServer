@@ -1,88 +1,57 @@
+<!DOCTYPE html>
 <html>
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
-<script src="http://builds.emberjs.com/handlebars-1.0.0.js"></script>
-<script src="http://builds.emberjs.com/ember-latest.js"></script>
-<script src="http://builds.emberjs.com/ember-data-latest.js"></script>
+<meta charset="utf-8">
+<title>Tech.pro Getting Started with Ember.js: Team Roster</title>
+<link rel="stylesheet" href="css/normalize.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<script type="text/x-handlebars" data-template-name="application">
-    Hello, {{firstName}} {{lastName}}<br />
-    <nav>
-        {{#linkTo "index"}}Home{{/linkTo}}
-        {{#linkTo "contributors"}}Contributors{{/linkTo}}
-     </nav>
-    <div>
-        {{outlet}}
-    </div>
-</script>
+  <script type="text/x-handlebars">
+    <h1>Park Center Basketball League: Team Rosters</h1>
 
-<script type="text/x-handlebars" data-template-name="index">
-    <div>{{title}}</div>
-</script>
-  
-<script type="text/x-handlebars" data-template-name="contributors">
+    {{outlet}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="home">
+
+    <h3>League Info</h3>
+
     <ul>
-        {{#each contributor in controller}}
-            <li>{{#linkTo contributor contributor}} {{contributor.login}} {{/linkTo}}</li>
-        {{/each}}
+    {{#each item in info}}
+      <li>{{item}}</li>
+    {{/each}}
     </ul>
-</script>
-  
-<script type="text/x-handlebars" data-template-name="contributor">
-    Contributor: {{login}}, contributions: {{contributions}}
-</script>
 
-<script>
-App = Ember.Application.create();
-App.ApplicationController = Ember.Controller.extend({
-    firstName: "Tom",
-    lastName: "Brandt"
-});
+    <h3>Teams</h3>
 
-App.Router.map(function(){
-  this.route('contributors');
-  this.route('contributor', {path: '/contributors/:contributor_id'});
-});
+     {{#if teams.isLoaded}}
+     <ul> 
+       {{#each team in teams}}
+        {{#linkTo "team" team}}
+          <p> {{team.name}} </p>
+        {{/linkTo}}
+       {{/each}}
+     </ul>
+     {{else}}
+     <p class="loading">...Loading teams</p>
+     {{/if}}
 
-App.IndexRoute = Ember.Route.extend({
-  setupController: function(controller) {
-    controller.set('title', "The is the index controller");
-  }
-});
+  </script>
 
-App.ContributorsRoute = Ember.Route.extend({
-  model: function() {
-    return App.Contributor.all();
-  }
-});
+  <script type="text/x-handlebars" data-template-name="team">
 
-App.Contributor = Ember.Object.extend();
-App.Contributor.reopenClass({
-  allContributors: [],
-  all: function(){
-    this.allContributors = [];
-    $.ajax({
-      url: 'https://api.github.com/repos/emberjs/ember.js/contributors',
-      dataType: 'jsonp',
-      context: this,
-      success: function(response){
-        response.data.forEach(function(contributor){
-          this.allContributors.addObject(App.Contributor.create(contributor))
-        }, this)
-      }
-    })
-    return this.allContributors;
-  }
-});
-</script>
+    <h3>Team Page: {{name}}</h3>
+    <p> team colors: {{colors}} </p> 
 
-<!---
-<script type="text/x-handlebars">
-    Hello World!
-</script>
---->
+  </script>
+
+  <script src="js/libs/jquery-1.9.1.js"></script>
+  <script src="js/libs/handlebars-1.0.0-rc.3.js"></script>
+  <script src="js/libs/ember-1.0.0-rc.2.js"></script>
+  <script src="js/libs/ember-data.js"></script>
+  <script src="js/app.js"></script>
 
 </body>
-</html> 
+</html>
