@@ -32,7 +32,7 @@ app.configure(function(){
      // compress works not, since res.json is not overridden by compress middleware
      // TODO make sure res.headers['content-encoding'] is set correctly
      .use(express.compress())
-     .use(express.static(path.join(__dirname, '../apps/e-shop/public')));
+     .use(express.static(path.join(__dirname, '../apps')));
 });
 
 // development only
